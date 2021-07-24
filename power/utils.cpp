@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2015, The Linux Foundation. All rights reserved.
- * Copyright (C) 2018-2021 The LineageOS Project
+ * Copyright (c) 2012-2013,2015-2018, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -27,7 +26,6 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 #define LOG_NIDEBUG 0
 
 #include <dlfcn.h>
@@ -35,26 +33,75 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <time.h>
+#include <unistd.h>
 
-#define LOG_TAG "QTI PowerHAL"
-#include <hardware/hardware.h>
-#include <hardware/power.h>
-#include <log/log.h>
-
-#include "hint-data.h"
-#include "metadata-defs.h"
-#include "performance.h"
-#include "power-common.h"
 #include "utils.h"
 
+#define LOG_TAG "BaikalOS PowerHAL"
+#include <log/log.h>
 
-int power_hint_override(power_hint_t hint, void* data) {
-    return HINT_HANDLED;
+const char* pkg = "BaikalOS PowerHAL";
+
+int sysfs_read(const char* path, char* s, int num_bytes) {
+    char buf[80];
+    int count;
+    int ret = 0;
+    int fd = open(path, O_RDONLY);
+
+    if (fd < 0) {
+        strerror_r(errno, buf, sizeof(buf));
+        ALOGE("Error opening %s: %s\n", path, buf);
+
+        return -1;
+    }
+
+    if ((count = read(fd, s, num_bytes - 1)) < 0) {
+        strerror_r(errno, buf, sizeof(buf));
+        ALOGE("Error writing to %s: %s\n", path, buf);
+
+        ret = -1;
+    } else {
+        s[count] = '\0';
+    }
+
+    close(fd);
+
+    return ret;
 }
 
-int set_interactive_override(int on) {
-    return HINT_HANDLED;
+int sysfs_write(const char* path, char* s) {
+    char buf[80];
+    int len;
+    int ret = 0;
+    int fd = open(path, O_WRONLY);
+
+    if (fd < 0) {
+        strerror_r(errno, buf, sizeof(buf));
+        ALOGE("Error opening %s: %s\n", path, buf);
+        return -1;
+    }
+
+    len = write(fd, s, strlen(s));
+    if (len < 0) {
+        strerror_r(errno, buf, sizeof(buf));
+        ALOGE("Error writing to %s: %s\n", path, buf);
+
+        ret = -1;
+    }
+
+    close(fd);
+
+    return ret;
+}
+
+int sysfs_boost(const char* path, int value) {
+    char buffer[32];
+
+    if( sysfs_read(path,buffer,32) ) return -1;
+    int current = atoi(buffer);
+    if( current < value ) {
+        snprintf(buffer,32,"%d",value);
+        return sysfs_write(path, buffer);
+    }
+    return 0;
 }

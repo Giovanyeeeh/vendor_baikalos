@@ -31,7 +31,6 @@
 #define ANDROID_HARDWARE_POWER_POWER_H
 
 #include <aidl/android/hardware/power/BnPower.h>
-#include "power-common.h"
 
 namespace aidl {
 namespace android {
@@ -41,11 +40,34 @@ namespace impl {
 
 class Power : public BnPower {
   public:
-    Power() : BnPower() { power_init(); }
+    Power() : BnPower() {  }
     ndk::ScopedAStatus setMode(Mode type, bool enabled) override;
     ndk::ScopedAStatus isModeSupported(Mode type, bool* _aidl_return) override;
     ndk::ScopedAStatus setBoost(Boost type, int32_t durationMs) override;
     ndk::ScopedAStatus isBoostSupported(Boost type, bool* _aidl_return) override;
+
+  protected:
+    void updatePerformanceProfile();
+    void updateThermalProfile();
+    bool isOverridePerformance();
+    bool isOverrideThermal();
+    bool isIgnoreBoost();
+
+  protected:
+    int32_t mCurrentPerformanceProfile;
+    int32_t mCurrentThermalProfile;
+    bool mInteractionBoost;
+    bool mRenderBoost;
+    bool mCameraBoost;
+    bool mAudioBoost;
+    bool mLaunchBoost;
+    bool mLowPower;
+    bool mDeviceIdle;
+    bool mScreenOff;
+    bool mVRBoost;
+
+    bool mOverrideThermal;
+    int32_t mOverrideThermalProfile;
 };
 
 }  // namespace impl

@@ -16,8 +16,7 @@
 
 <config>
 
-    <allow-in-power-save package="com.android.systemui" />
-
+    <allow-in-power-save-except-idle package="com.android.systemui" />
 
     <allow-in-power-save package="com.android.deskclock" />
     <allow-in-power-save package="com.google.android.deskclock" />
@@ -25,19 +24,17 @@
     <allow-in-power-save package="org.lineageos.lockclock"/>
 
     <allow-in-power-save package="com.android.phone" />
+    <allow-in-power-save package="com.android.server.telecom" />
+    <allow-in-power-save package="com.android.providers.telephony" />
+    <allow-in-power-save package="org.codeaurora.ims" />
 
     <allow-in-power-save package="com.android.musicfx" />
 
     <allow-in-power-save package="com.android.mtp" />
 
-    <!-- allow-in-power-save package="com.android.dialer" / -->
-    <!-- allow-in-power-save package="com.google.android.dialer" / -->
-
-
-    <!-- allow-in-power-save package="com.android.messaging" / -->
-    <!-- allow-in-power-save package="com.topjohnwu.magisk" / -->
-
-    <!-- allow-in-power-save package="com.android.basicsmsreceiver" / -->
+    <allow-in-power-save package="com.android.mms.service" />
+    <allow-in-power-save package="com.android.smspush" />
+    <allow-in-power-save package="com.android.documentsui" />
 
     <!-- allow-in-power-save package="com.android.bluetooth" / -->
     <!-- allow-in-power-save package="com.android.calendar" / -->
@@ -46,18 +43,6 @@
 
     <allow-in-power-save package="com.android.cellbroadcastreceiver" />
     <allow-in-power-save package="com.android.certinstaller" />
-    <!-- allow-in-power-save package="com.android.dialer" / -->
-    <!-- allow-in-power-save package="com.android.documentsui" / -->
-
-    <!-- allow-in-power-save package="com.android.bips" / -->
-    <!-- allow-in-power-save package="com.android.mms.service" / -->
-    <!-- allow-in-power-save package="com.android.phone" / -->
-
-    <!-- allow-in-power-save package="com.android.server.telecom" / -->
-    <!-- allow-in-power-save package="com.google.android.dialer" / -->
-    <allow-in-power-save package="org.codeaurora.ims" />
-
-    <!-- allow-in-power-save package="com.google.android.apps.turbo" / -->
 
     <hidden-api-whitelisted-app package="com.asksven.betterbatterystats_xdaedition" />
     <hidden-api-whitelisted-app package="com.asksven.betterbatterystats" />

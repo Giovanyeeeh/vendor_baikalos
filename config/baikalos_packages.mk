@@ -218,14 +218,14 @@ endif
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.face.moto_unlock_service=$(TARGET_FACE_UNLOCK_SUPPORTED)
 
-ifeq ($(TARGET_USE_MOTO_DOLBY), true)
-    $(warning TARGET_USE_MOTO_DOLBY=true)
-    $(call inherit-product, external/motorola/dolby/dolby.mk)
-    PRODUCT_PACKAGES += \
-        daxService \
-        MotoDolbyV3
-else
-    $(warning TARGET_USE_MOTO_DOLBY=false)
-endif
+#ifeq ($(TARGET_USE_MOTO_DOLBY), true)
+#    $(warning TARGET_USE_MOTO_DOLBY=true)
+#    $(call inherit-product, external/motorola/dolby/dolby.mk)
+#    PRODUCT_PACKAGES += \
+#        daxService \
+#        MotoDolbyV3
+#else
+#    $(warning TARGET_USE_MOTO_DOLBY=false)
+#endif
 
 LOCAL_OVERRIDES_PACKAGES += com.android.messaging_whitelist.xml
