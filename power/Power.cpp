@@ -375,7 +375,7 @@ bool Power::isOverrideThermal() {
 
 bool Power::isIgnoreBoost() {
     return mLowPower ||
-    mDeviceIdle ||
+    /*mDeviceIdle ||*/
     mScreenOff;
 }
 
