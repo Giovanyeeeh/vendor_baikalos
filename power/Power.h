@@ -46,12 +46,19 @@ class Power : public BnPower {
     ndk::ScopedAStatus setBoost(Boost type, int32_t durationMs) override;
     ndk::ScopedAStatus isBoostSupported(Boost type, bool* _aidl_return) override;
 
-  protected:
-    void updatePerformanceProfile();
-    void updateThermalProfile();
+  public:
     bool isOverridePerformance();
     bool isOverrideThermal();
     bool isIgnoreBoost();
+    bool isBoostOverride();
+    bool isDebug();
+    inline int getBoostLevel() { return mBoostEnabled; };
+    
+
+  protected:
+    void updatePerformanceProfile();
+    void updateThermalProfile();
+    void updateSettings();
 
   protected:
     int32_t mCurrentPerformanceProfile;
@@ -68,6 +75,10 @@ class Power : public BnPower {
 
     bool mOverrideThermal;
     int32_t mOverrideThermalProfile;
+    bool mBoostOverride;
+    int mBoostEnabled;
+    bool mDebug;
+    
 };
 
 }  // namespace impl

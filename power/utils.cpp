@@ -42,6 +42,8 @@
 
 const char* pkg = "BaikalOS PowerHAL";
 
+bool __utils_debug = false;
+
 int sysfs_read(const char* path, char* s, int num_bytes) {
     char buf[80];
     int count;
@@ -97,10 +99,13 @@ int sysfs_write(const char* path, char* s) {
 int sysfs_boost(const char* path, int value) {
     char buffer[32];
 
+    if( __utils_debug ) ALOGI("%s :%d\n",path,value);
+
     if( sysfs_read(path,buffer,32) ) return -1;
     int current = atoi(buffer);
     if( current < value ) {
         snprintf(buffer,32,"%d",value);
+        if( __utils_debug ) ALOGI("%s boost %d -> %d\n",path,current,value);
         return sysfs_write(path, buffer);
     }
     return 0;

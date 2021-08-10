@@ -32,3 +32,5 @@
 int sysfs_read(const char* path, char* s, int num_bytes);
 int sysfs_write(const char* path, char* s);
 int sysfs_boost(const char* path, int value);
+
+extern bool __utils_debug;

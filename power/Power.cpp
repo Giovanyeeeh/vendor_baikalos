@@ -40,6 +40,11 @@
 #include <android/binder_manager.h>
 #include <android/binder_process.h>
 
+#include <cutils/properties.h>
+
+#include "utils.h"
+
+
 using ::aidl::android::hardware::power::BnPower;
 using ::aidl::android::hardware::power::Boost;
 using ::aidl::android::hardware::power::IPower;
@@ -55,18 +60,18 @@ namespace power {
 namespace impl {
 
 #ifdef MODE_EXT
-extern bool isDeviceSpecificModeSupported(Mode type, bool* _aidl_return);
-extern bool setDeviceSpecificMode(Mode type, bool enabled);
-extern bool isDeviceSpecificBoostSupported(int32_t type, bool* _aidl_return);
-extern bool setDeviceSpecificBoost(int32_t type, int32_t boost);
-extern bool setPerformanceProfile(int32_t type);
-extern bool setThermalProfile(int32_t type);
+extern bool isDeviceSpecificModeSupported(Power* power, Mode type, bool* _aidl_return);
+extern bool setDeviceSpecificMode(Power* power, Mode type, bool enabled);
+extern bool isDeviceSpecificBoostSupported(Power* power, int32_t type, bool* _aidl_return);
+extern bool setDeviceSpecificBoost(Power* power, int32_t type, int32_t boost);
+extern bool setPerformanceProfile(Power* power, int32_t type);
+extern bool setThermalProfile(Power* power, int32_t type);
 #endif
 
 ndk::ScopedAStatus Power::setMode(Mode type, bool enabled) {
-    LOG(INFO) << "Power setMode: " << static_cast<int32_t>(type) << " to: " << enabled;
+    //LOG(INFO) << "Power setMode: " << static_cast<int32_t>(type) << " to: " << enabled;
 #ifdef MODE_EXT
-    if (setDeviceSpecificMode(type, enabled)) {
+    if (setDeviceSpecificMode(this, type, enabled)) {
         return ndk::ScopedAStatus::ok();
     }
 #endif
@@ -129,10 +134,10 @@ ndk::ScopedAStatus Power::setMode(Mode type, bool enabled) {
 }
 
 ndk::ScopedAStatus Power::isModeSupported(Mode type, bool* _aidl_return) {
-    LOG(INFO) << "Power isModeSupported: " << static_cast<int32_t>(type);
+    //LOG(INFO) << "Power isModeSupported: " << static_cast<int32_t>(type);
 
 #ifdef MODE_EXT
-    if (isDeviceSpecificModeSupported(type, _aidl_return)) {
+    if (isDeviceSpecificModeSupported(this, type, _aidl_return)) {
         return ndk::ScopedAStatus::ok();
     }
 #endif
@@ -167,8 +172,8 @@ ndk::ScopedAStatus Power::setBoost(Boost type, int32_t durationMs) {
 //    bool mScreenOff;
 //    bool mVRBoost;
 
-    //LOG(INFO) << "Power setBoost: " << static_cast<int32_t>(type)
-    //             << ", duration: " << durationMs;
+    if( isDebug() ) LOG(INFO) << "Power setBoost: " << static_cast<int32_t>(type)
+                 << ", duration: " << durationMs;
 
     switch (static_cast<int>(type)) {
         case static_cast<int>(Boost::INTERACTION):
@@ -178,17 +183,18 @@ ndk::ScopedAStatus Power::setBoost(Boost type, int32_t durationMs) {
 
         case 10000: // Set performance profile
             mCurrentPerformanceProfile = durationMs;
+            updateSettings();
             if( !isOverridePerformance() ) {
-                LOG(INFO) << "Power setPerformanceProfile: " << durationMs;
-                setPerformanceProfile(durationMs);
+            if( isDebug() ) LOG(INFO) << "Power setPerformanceProfile: " << durationMs;
+                setPerformanceProfile(this, durationMs);
             }
             break; 
 
         case 11000: // Set thermal profile
             mCurrentThermalProfile = durationMs;
             if( !isOverrideThermal() ) {
-                LOG(INFO) << "Power setThermalProfile: " << durationMs;
-                setThermalProfile(durationMs);
+                if( isDebug() ) LOG(INFO) << "Power setThermalProfile: " << durationMs;
+                setThermalProfile(this, durationMs);
             }
             break;
 
@@ -196,43 +202,45 @@ ndk::ScopedAStatus Power::setBoost(Boost type, int32_t durationMs) {
             if( durationMs > 0 ) {
                 mOverrideThermal = true;
                 mOverrideThermalProfile = durationMs;
-                LOG(INFO) << "Power setOverrideThermalProfile: " << durationMs;
-                setThermalProfile(mOverrideThermalProfile);
+                if( isDebug() ) LOG(INFO) << "Power setOverrideThermalProfile: " << durationMs;
+                setThermalProfile(this, mOverrideThermalProfile);
             } else {
                 mOverrideThermal = false;
-                LOG(INFO) << "Power cancelOverrideThermalProfile: " << mCurrentThermalProfile;
-                setThermalProfile(mCurrentThermalProfile);
+                if( isDebug() ) LOG(INFO) << "Power cancelOverrideThermalProfile: " << mCurrentThermalProfile;
+                setThermalProfile(this, mCurrentThermalProfile);
             }
             break;
 
         case 12000: // Framework INTERACTION boost
+        case 12010: // Override screen off and idle
             if( durationMs == 1 && mInteractionBoost ) break;
             if( durationMs == 0 && !mInteractionBoost ) break;
-            if( !isIgnoreBoost() && !mInteractionBoost ) {
+            if( (static_cast<int>(type) == 12010 || !isIgnoreBoost() ) && !mInteractionBoost ) {
                 mInteractionBoost = true;
-                LOG(INFO) << "Power Interaction Boost: On" ;
-                setDeviceSpecificBoost(12000,durationMs); 
+                if( isDebug() ) LOG(INFO) << "Power Interaction Boost: On" ;
+                setDeviceSpecificBoost(this, 12000,durationMs); 
             }
             if( !durationMs ) {
                 mInteractionBoost = false;
-                LOG(INFO) << "Power Interaction Boost: Off" ;
-                setDeviceSpecificBoost(12000,durationMs); 
+                if( isDebug() ) LOG(INFO) << "Power Interaction Boost: Off" ;
+                setDeviceSpecificBoost(this, 12000,durationMs); 
                 updatePerformanceProfile();
             }
             break;
 
         case 12001: // LAUNCH boost
+            updateSettings();
             if( durationMs == 1 && mLaunchBoost ) break;
             if( durationMs == 0 && !mLaunchBoost ) break;
             if( !isIgnoreBoost() && !mLaunchBoost ) {
                 mLaunchBoost = true;
-                LOG(INFO) << "Power Lunch Boost: On" ;
-                setDeviceSpecificBoost(12001,durationMs); 
+                if( isDebug() ) LOG(INFO) << "Power Lunch Boost: On" ;
+                setDeviceSpecificBoost(this, 12001,durationMs); 
             }
             if( !durationMs ) {
                 mLaunchBoost = false;
-                LOG(INFO) << "Power Lunch Boost: Off" ;
-                setDeviceSpecificBoost(12001,durationMs); 
+                if( isDebug() ) LOG(INFO) << "Power Lunch Boost: Off" ;
+                setDeviceSpecificBoost(this, 12001,durationMs); 
                 updatePerformanceProfile();
             }
             break;
@@ -242,13 +250,13 @@ ndk::ScopedAStatus Power::setBoost(Boost type, int32_t durationMs) {
             if( durationMs == 0 && !mRenderBoost ) break;
             if( !isIgnoreBoost() && !mRenderBoost ) {
                 mRenderBoost = true;
-                LOG(INFO) << "Power Expensive Rendering: On" ;
-                setDeviceSpecificBoost(12002,durationMs); 
+                if( isDebug() ) LOG(INFO) << "Power Expensive Rendering: On" ;
+                setDeviceSpecificBoost(this, 12002,durationMs); 
             }
             if( !durationMs ) {
                 mRenderBoost = false;
-                LOG(INFO) << "Power Expensive Rendering: Off" ;
-                setDeviceSpecificBoost(12002,durationMs); 
+                if( isDebug() ) LOG(INFO) << "Power Expensive Rendering: Off" ;
+                setDeviceSpecificBoost(this, 12002,durationMs); 
                 updatePerformanceProfile();
             }
             break;
@@ -258,13 +266,13 @@ ndk::ScopedAStatus Power::setBoost(Boost type, int32_t durationMs) {
             if( durationMs == 0 && !mAudioBoost ) break;
             if( !isIgnoreBoost() && !mAudioBoost ) {
                 mAudioBoost = true;
-                LOG(INFO) << "Power Audio Boost: On" ;
-                setDeviceSpecificBoost(12003,durationMs); 
+                if( isDebug() ) LOG(INFO) << "Power Audio Boost: On" ;
+                setDeviceSpecificBoost(this, 12003,durationMs); 
             }
             if( !durationMs ) {
                 mAudioBoost = false;
-                LOG(INFO) << "Power Audio Boost: Off" ;
-                setDeviceSpecificBoost(12003,durationMs); 
+                if( isDebug() ) LOG(INFO) << "Power Audio Boost: Off" ;
+                setDeviceSpecificBoost(this, 12003,durationMs); 
                 updatePerformanceProfile();
             }
             break;
@@ -274,14 +282,14 @@ ndk::ScopedAStatus Power::setBoost(Boost type, int32_t durationMs) {
             if( durationMs == 0 && !mCameraBoost ) break;
             if( !isIgnoreBoost() && !mCameraBoost ) {
                 mCameraBoost = true;
-                LOG(INFO) << "Power Camera Boost: On" ;
-                setDeviceSpecificBoost(12004,durationMs); 
+                setDeviceSpecificBoost(this, 12004,durationMs); 
+                if( isDebug() ) LOG(INFO) << "Power Camera Boost: On" ;
             }
             if( !durationMs ) {
                 mCameraBoost = false;
-                LOG(INFO) << "Power Camera Boost: Off" ;
-                setDeviceSpecificBoost(12004,durationMs); 
+                setDeviceSpecificBoost(this, 12004,durationMs); 
                 updatePerformanceProfile();
+                if( isDebug() ) LOG(INFO) << "Power Camera Boost: Off" ;
             }
             break;
 
@@ -290,14 +298,14 @@ ndk::ScopedAStatus Power::setBoost(Boost type, int32_t durationMs) {
             if( durationMs == 0 && !mVRBoost ) break;
             if( !isIgnoreBoost() && !mVRBoost ) {
                 mVRBoost = true;
-                LOG(INFO) << "Power VR Boost: On" ;
-                setDeviceSpecificBoost(12005,durationMs); 
+                setDeviceSpecificBoost(this, 12005,durationMs); 
+                if( isDebug() ) LOG(INFO) << "Power VR Boost: On" ;
             }
             if( !durationMs ) {
                 mVRBoost = false;
-                LOG(INFO) << "Power VR Boost: Off" ;
-                setDeviceSpecificBoost(12005,durationMs); 
+                setDeviceSpecificBoost(this, 12005,durationMs); 
                 updatePerformanceProfile();
+                if( isDebug() ) LOG(INFO) << "Power VR Boost: Off" ;
             }
             break;
 
@@ -328,7 +336,7 @@ ndk::ScopedAStatus Power::setBoost(Boost type, int32_t durationMs) {
         default:
 
 #ifdef MODE_EXT
-            if (setDeviceSpecificBoost((int)type, durationMs)) {
+            if (setDeviceSpecificBoost(this, (int)type, durationMs)) {
                 return ndk::ScopedAStatus::ok();
             }
 #endif
@@ -340,10 +348,10 @@ ndk::ScopedAStatus Power::setBoost(Boost type, int32_t durationMs) {
 }
 
 ndk::ScopedAStatus Power::isBoostSupported(Boost type, bool* _aidl_return) {
-    LOG(INFO) << "Power isBoostSupported: " << static_cast<int32_t>(type);
+    //LOG(INFO) << "Power isBoostSupported: " << static_cast<int32_t>(type);
 
 #ifdef MODE_EXT
-    if (isDeviceSpecificBoostSupported(static_cast<int32_t>(type), _aidl_return)) {
+    if (isDeviceSpecificBoostSupported(this, static_cast<int32_t>(type), _aidl_return)) {
         return ndk::ScopedAStatus::ok();
     }
 #endif
@@ -374,22 +382,43 @@ bool Power::isOverrideThermal() {
 }
 
 bool Power::isIgnoreBoost() {
-    return mLowPower ||
-    /*mDeviceIdle ||*/
-    mScreenOff;
+    return mBoostEnabled == 0 || mLowPower || mScreenOff;
+    //mDeviceIdle ||
+   
+}
+
+bool Power::isBoostOverride() {
+    return mBoostOverride;    
 }
 
 void Power::updatePerformanceProfile() {
     if( isIgnoreBoost() || !isOverridePerformance() ) {
-        setPerformanceProfile(mCurrentPerformanceProfile);
+        setPerformanceProfile(this, mCurrentPerformanceProfile);
+    } else {
+        if( isDebug() ) {
+            LOG(INFO) << "Ignore boost:" <<  mBoostEnabled << ":" << mLowPower << ":"  << mScreenOff;
+            LOG(INFO) << "Override:" << mInteractionBoost << ":" << mRenderBoost << ":" <<  mCameraBoost << ":" <<  mAudioBoost << ":" <<  mLaunchBoost << ":" << mVRBoost;
+        }
     }
 }
 
 void Power::updateThermalProfile() {
     if( !isOverrideThermal() ) { 
-        setThermalProfile(mCurrentThermalProfile);
+        setThermalProfile(this, mCurrentThermalProfile);
     }
 }
+
+void Power::updateSettings() {
+    mBoostOverride = property_get_bool("persist.baikal.boost_ovr", false);
+    mBoostEnabled = property_get_int32("persist.baikal.boost_en", 0);
+    mDebug = property_get_bool("persist.baikal.boost_debug", false);
+    __utils_debug = mDebug;
+}
+
+bool Power::isDebug() {
+    return mDebug;    
+}
+
 
 }  // namespace impl
 }  // namespace power
