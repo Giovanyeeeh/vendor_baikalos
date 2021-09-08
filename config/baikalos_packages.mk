@@ -184,6 +184,7 @@ PRODUCT_PACKAGES += \
     FontRosemarySourceOverlay \
     FontRubikRubikOverlay \
     FontSamsungOneSourceOverlay \
+    FontSFProArabicOverlay \
     FontSFProOverlay \
     FontSignikaOverlay \
     FontSlateForOnePlusOverlay \
