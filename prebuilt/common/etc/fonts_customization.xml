@@ -336,6 +336,16 @@
     </family>
     <alias name="san-francisco-pro-display-medium" to="san-francisco-pro-display" weight="500" />
 
+    <family customizationType="new-named-family" name="san-francisco-pro-text">
+      <font weight="400" style="normal">SFProText-Regular.ttf</font>
+      <font weight="500" style="normal">SFProText-Medium.ttf</font>
+    </family>
+    <alias name="san-francisco-pro-text-medium" to="san-francisco-pro-text" weight="500" />
+
+    <family customizationType="new-named-family" name="san-francisco-pro-arabic">
+      <font weight="400" style="normal">SF-Arabic.ttf</font>
+    </family>
+
     <family customizationType="new-named-family" name="Slate">
         <font weight="100" style="normal">SlateForOnePlus-Thin.ttf</font>
         <font weight="100" style="italic">Roboto-ThinItalic.ttf</font>
