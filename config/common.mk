@@ -66,6 +66,16 @@ PRODUCT_COPY_FILES += \
     vendor/baikalos/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
     vendor/baikalos/prebuilt/common/bin/50-baikalos.sh:$(TARGET_COPY_OUT_SYSTEM)/addon.d/50-baikalos.sh
 
+
+# swap scripts
+PRODUCT_COPY_FILES += \
+    vendor/baikalos/prebuilt/common/bin/init.swap.zram_on.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.swap.zram_on.sh \
+    vendor/baikalos/prebuilt/common/bin/init.swap.zram_off.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.swap.zram_off.sh \
+    vendor/baikalos/prebuilt/common/bin/init.swap.disk_on.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.swap.disk_on.sh \
+    vendor/baikalos/prebuilt/common/bin/init.swap.disk_off.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.swap.disk_off.sh \
+
+
+
 ifneq ($(strip $(AB_OTA_PARTITIONS) $(AB_OTA_POSTINSTALL_CONFIG)),)
 PRODUCT_COPY_FILES += \
     vendor/baikalos/prebuilt/common/bin/backuptool_ab.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.sh \
