@@ -72,6 +72,7 @@ class Power : public BnPower {
     bool mDeviceIdle;
     bool mScreenOff;
     bool mVRBoost;
+    bool mIncallBoost;
 
     bool mOverrideThermal;
     int32_t mOverrideThermalProfile;

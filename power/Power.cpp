@@ -212,17 +212,34 @@ ndk::ScopedAStatus Power::setBoost(Boost type, int32_t durationMs) {
             break;
 
         case 12000: // Framework INTERACTION boost
-        case 12010: // Override screen off and idle
-            if( durationMs == 1 && mInteractionBoost ) break;
-            if( durationMs == 0 && !mInteractionBoost ) break;
-            if( (static_cast<int>(type) == 12010 || !isIgnoreBoost() ) && !mInteractionBoost ) {
+            if( durationMs == 1 && (mInteractionBoost || mIncallBoost) ) break;
+            if( durationMs == 0 && (!mInteractionBoost && !mIncallBoost) ) break;
+            if( !isIgnoreBoost() && !mInteractionBoost ) {
                 mInteractionBoost = true;
                 if( isDebug() ) LOG(INFO) << "Power Interaction Boost: On" ;
                 setDeviceSpecificBoost(this, 12000,durationMs); 
             }
             if( !durationMs ) {
+                if( isDebug() && mInteractionBoost ) LOG(INFO) << "Power Interaction Boost: Off" ;
+                if( isDebug() && mIncallBoost ) LOG(INFO) << "Incoming call Boost: Off" ;
                 mInteractionBoost = false;
-                if( isDebug() ) LOG(INFO) << "Power Interaction Boost: Off" ;
+                mIncallBoost = false;
+                setDeviceSpecificBoost(this, 12000,durationMs); 
+                updatePerformanceProfile();
+            }
+            break;
+
+        case 12010: // Incall boost
+            if( durationMs == 1 && mIncallBoost ) break;
+            if( durationMs == 0 && !mIncallBoost ) break;
+            if( !mIncallBoost ) {
+                mIncallBoost = true;
+                if( isDebug() ) LOG(INFO) << "Incoming call Boost: On" ;
+                setDeviceSpecificBoost(this, 12000,durationMs); 
+            }
+            if( !durationMs ) {
+                mIncallBoost = false;
+                if( isDebug() ) LOG(INFO) << "Incoming call Boost: Off" ;
                 setDeviceSpecificBoost(this, 12000,durationMs); 
                 updatePerformanceProfile();
             }
@@ -370,6 +387,7 @@ ndk::ScopedAStatus Power::isBoostSupported(Boost type, bool* _aidl_return) {
 
 bool Power::isOverridePerformance() {
     return mInteractionBoost ||
+    mIncallBoost ||
     mRenderBoost ||
     mCameraBoost ||
     mAudioBoost ||
@@ -392,12 +410,12 @@ bool Power::isBoostOverride() {
 }
 
 void Power::updatePerformanceProfile() {
-    if( isIgnoreBoost() || !isOverridePerformance() ) {
+    if( /*isIgnoreBoost() ||*/ !isOverridePerformance() ) {
         setPerformanceProfile(this, mCurrentPerformanceProfile);
     } else {
         if( isDebug() ) {
             LOG(INFO) << "Ignore boost:" <<  mBoostEnabled << ":" << mLowPower << ":"  << mScreenOff;
-            LOG(INFO) << "Override:" << mInteractionBoost << ":" << mRenderBoost << ":" <<  mCameraBoost << ":" <<  mAudioBoost << ":" <<  mLaunchBoost << ":" << mVRBoost;
+            LOG(INFO) << "Override:" << mInteractionBoost << ":" << mRenderBoost << ":" <<  mCameraBoost << ":" <<  mAudioBoost << ":" <<  mLaunchBoost << ":" << mVRBoost << ":" << mIncallBoost;
         }
     }
 }

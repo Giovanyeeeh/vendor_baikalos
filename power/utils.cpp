@@ -96,6 +96,14 @@ int sysfs_write(const char* path, char* s) {
     return ret;
 }
 
+int sysfs_write_int(const char* path, int value) {
+    char buffer[32];
+    if( __utils_debug ) ALOGI("%s :%d\n",path,value);
+    snprintf(buffer,32,"%d",value);
+    if( __utils_debug ) ALOGI("%s boost forced -> %d\n",path,value);
+    return sysfs_write(path, buffer);
+}
+
 int sysfs_boost(const char* path, int value) {
     char buffer[32];
 
