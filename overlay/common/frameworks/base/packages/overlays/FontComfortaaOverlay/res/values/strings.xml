@@ -16,6 +16,6 @@
  */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Headline / Comfortaa overlay -->
+    <!-- comfortaa overlay -->
     <string name="font_comfortaa_overlay" translatable="false">Comfortaa</string>
 </resources>

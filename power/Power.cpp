@@ -430,6 +430,7 @@ void Power::updateSettings() {
     mBoostOverride = property_get_bool("persist.baikal.boost_ovr", false);
     mBoostEnabled = property_get_int32("persist.baikal.boost_en", 0);
     mDebug = property_get_bool("persist.baikal.boost_debug", false);
+    mHighPerf = property_get_int32("baikal.high_prio", 0);
     __utils_debug = mDebug;
 }
 

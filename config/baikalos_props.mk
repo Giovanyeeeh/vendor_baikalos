@@ -11,10 +11,7 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     dalvik.vm.debug.alloc=0 \
     ro.url.legal=http://www.google.com/intl/%s/mobile/android/basic/phone-legal.html \
     ro.url.legal.android_privacy=http://www.google.com/intl/%s/mobile/android/basic/privacy.html \
-    ro.com.android.wifi-watchlist=GoogleGuest \
-    ro.setupwizard.enterprise_mode=1 \
-    ro.com.android.dateformat=MM-dd-yyyy \
-    ro.build.selinux=1
+    ro.com.android.wifi-watchlist=GoogleGuest
 
 # Storage manager
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
@@ -27,3 +24,6 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # whitelist packages for location providers not in system
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.services.whitelist.packagelist=com.google.android.gms
+
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.opa.eligible_device=true

@@ -16,6 +16,6 @@
  */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Headline / OpenSans overlay -->
-    <string name="font_opensans_overlay" translatable="false">OpenSans</string>
+    <!-- opensans overlay -->
+    <string name="font_opensans_overlay" translatable="false">Open Sans</string>
 </resources>

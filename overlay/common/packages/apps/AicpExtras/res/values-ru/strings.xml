@@ -19,9 +19,9 @@
     <string name="use_old_mobiletype_summary">Использовать старый стиль индикации мобильной сети</string>
     <string name="use_old_mobiletype_title">Стиль значка мобильной сети как в Oreo</string>
     <string name="vowifi_icon_summary">Отображать значок VoWiFi, если он доступен</string>
-    <string name="vowifi_icon_title">Значек VoWiFi</string>
+    <string name="vowifi_icon_title">Значок VoWiFi</string>
     <string name="vowifi_switch_summary">Отображать значок VoWiFi, если он доступен</string>
-    <string name="vowifi_switch_title">Значек VoWiFi</string>
+    <string name="vowifi_switch_title">Значок VoWiFi</string>
     <string name="volte_vowifi_override_summary">Скрыть VoLTE, когда VoWiFi доступен. Это также отменяет значок сигнала старого стиля для VoWiFi.</string>
     <string name="volte_vowifi_override_title">Переопределение VoWiFi</string>
     <string name="battery_style_solid">Сплошной</string>

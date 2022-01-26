@@ -96,6 +96,11 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
     SystemUI \
     Launcher3QuickStep
 
+
+# Pre-granted permissions baikalos-permissions.xml
+PRODUCT_COPY_FILES += \
+    vendor/baikalos/config/permissions/baikalos-permissions.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/default-permissions/baikalos-permissions.xml
+
 # Backup Services whitelist
 PRODUCT_COPY_FILES += \
     vendor/baikalos/config/permissions/backup.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/backup.xml \
@@ -118,7 +123,13 @@ PRODUCT_COPY_FILES += \
 
 # Hidden API whitelist
 PRODUCT_COPY_FILES += \
+    vendor/baikalos/config/permissions/baikalos-hiddenapi-package-whitelist.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/baikalos-hiddenapi-package-whitelist.xml
+
+PRODUCT_COPY_FILES += \
     vendor/baikalos/config/permissions/lineage-hiddenapi-package-whitelist.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/lineage-hiddenapi-package-whitelist.xml
+
+
+#$(warning $(call find-copy-files,*,vendor/baikalos/prebuilt/common/fonts,$(TARGET_COPY_OUT_PRODUCT)/fonts))
 
 # Fonts
 PRODUCT_COPY_FILES += \

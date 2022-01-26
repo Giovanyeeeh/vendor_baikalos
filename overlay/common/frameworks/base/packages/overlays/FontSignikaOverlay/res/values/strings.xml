@@ -16,6 +16,6 @@
  */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Headline / Signika overlay -->
+    <!-- signika overlay -->
     <string name="font_signika_overlay" translatable="false">Signika</string>
 </resources>

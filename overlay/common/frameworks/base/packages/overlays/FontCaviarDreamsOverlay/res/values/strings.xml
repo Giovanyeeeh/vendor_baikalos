@@ -16,6 +16,6 @@
  */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Headline / CaviarDreams overlay -->
+    <!-- caviardreams overlay -->
     <string name="font_caviardreams_overlay" translatable="false">CaviarDreams</string>
 </resources>

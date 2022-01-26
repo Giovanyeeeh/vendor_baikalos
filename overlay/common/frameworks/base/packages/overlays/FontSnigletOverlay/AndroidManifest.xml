@@ -26,6 +26,6 @@
     <application android:label="@string/font_sniglet_overlay" android:hasCode="false">
         <meta-data
             android:name="android.theme.customization.REQUIRED_SYSTEM_FONTS"
-            android:value="sniglet,sniglet-semi-bold,sniglet-bold" />
+            android:value="sniglet,sniglet-medium,sniglet-semi-bold,sniglet-bold" />
     </application>
 </manifest>

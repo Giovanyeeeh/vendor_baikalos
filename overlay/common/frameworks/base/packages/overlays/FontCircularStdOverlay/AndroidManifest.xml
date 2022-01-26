@@ -23,9 +23,9 @@
         android:category="android.theme.customization.font"
         android:priority="1"/>
 
-    <application android:label="@string/font_circular_std_overlay" android:hasCode="false">
+    <application android:label="@string/font_circularstd_overlay" android:hasCode="false">
         <meta-data
             android:name="android.theme.customization.REQUIRED_SYSTEM_FONTS"
-            android:value="circular,std,circularstd" />
+            android:value="circularstd,circularstd-medium,circularstd-semi-bold,circularstd-bold" />
     </application>
 </manifest>

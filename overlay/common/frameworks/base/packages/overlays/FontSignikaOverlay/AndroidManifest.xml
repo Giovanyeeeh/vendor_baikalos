@@ -26,6 +26,6 @@
     <application android:label="@string/font_signika_overlay" android:hasCode="false">
         <meta-data
             android:name="android.theme.customization.REQUIRED_SYSTEM_FONTS"
-            android:value="signika,signika-semi-bold,signika-bold" />
+            android:value="signika,signika-medium,signika-semi-bold,signika-bold" />
     </application>
 </manifest>

@@ -40,6 +40,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Jelly
 
+PRODUCT_PACKAGES += \
+    GamingMode
+
+PRODUCT_PACKAGES += \
+    SoftAPManager
+
 # OnDeviceAppPrediction
 PRODUCT_PACKAGES += \
     AppPredictionService
@@ -162,40 +168,53 @@ PRODUCT_PACKAGES += \
     AicpExtras \
     BaikalExtras \
     AicpThemesStub \
-    FontAclonicaSourceOverlay \
-    FontAmaranteSourceOverlay \
-    FontArbutusSourceOverlay \
-    FontArvoLatoOverlay \
-    FontBariolSourceOverlay \
-    FontCagliostroSourceOverlay \
+    TilesWallpaper
+
+PRODUCT_PACKAGES += \
+    FontAlconicaOverlay \
+    FontAmaranteOverlay \
+    FontArbutusOverlay \
+    FontAvantGardeGothOverlay \
+    FontAvantGardeGothBDOverlay \
+    FontBariolOverlay \
+    FontCagliostroOverlay \
     FontCaviarDreamsOverlay \
     FontCircularStdOverlay \
     FontComfortaaOverlay \
-    FontComicSansSourceOverlay \
-    FontCoolstorySourceOverlay \
-    FontExotwoOverlay \
-    FontFiraSansSourceOverlay \
+    FontComicSansOverlay \
+    FontCoolstoryOverlay \
     FontGoogleSansOverlay \
+    FontexotwoOverlay \
+    FontFiraSansOverlay \
+    FontFrutigerNeueOverlay \
+    FontIgraSansOverlay \
     FontInterOverlay \
-    FontLGSmartGothicSourceOverlay \
+    FontLatoOverlay \
+    FontLGSmartGothicOverlay \
     FontLinotteOverlay \
-    FontOpenSansOverlay \
-    FontOxaniumOverlay \
-    FontRosemarySourceOverlay \
-    FontRubikRubikOverlay \
-    FontSamsungOneSourceOverlay \
-    FontSFProArabicOverlay \
-    FontSFProOverlay \
-    FontSignikaOverlay \
-    FontSlateForOnePlusOverlay \
-    FontSnigletOverlay \
-    FontSonySketchSourceOverlay \
-    FontSurferSourceOverlay \
-    FontUbuntuOverlay \
-    FontUbuntuOverlay \
+    FontMagistralOverlay \
     FontMilanPro11Overlay \
     FontMilanPro12Overlay \
-    TilesWallpaper
+    FontMindustryOverlay \
+    FontOpenSansOverlay \
+    FontOxaniumOverlay \
+    FontRoganOverlay \
+    FontRosemaryOverlay \
+    FontRubikOverlay \
+    FontSamsungOneOverlay \
+    FontSamsungSansOverlay \
+    FontSFProArabicOverlay \
+    FontsfproOverlay \
+    FontsfprotextOverlay \
+    FontSignikaOverlay \
+    FontSlate_for_OnePlusOverlay \
+    FontSnigletOverlay \
+    FontSonySketchOverlay \
+    FontStoropiaOverlay \
+    FontSurferOverlay \
+    FontUbuntuOverlay \
+    FontUssrStencilOverlay \
+
 
 # baikalos Ad-block
 PRODUCT_PACKAGES += \

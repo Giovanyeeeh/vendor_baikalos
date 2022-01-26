@@ -16,6 +16,6 @@
  */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Headline / Sniglet overlay -->
+    <!-- sniglet overlay -->
     <string name="font_sniglet_overlay" translatable="false">Sniglet</string>
 </resources>

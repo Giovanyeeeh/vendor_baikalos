@@ -16,5 +16,6 @@
  */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="font_overlay_package_label" translatable="false">Inter</string>
+    <!-- inter overlay -->
+    <string name="font_inter_overlay" translatable="false">Inter</string>
 </resources>

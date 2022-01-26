@@ -26,6 +26,6 @@
     <application android:label="@string/font_sfproarabic_overlay" android:hasCode="false">
         <meta-data
             android:name="android.theme.customization.REQUIRED_SYSTEM_FONTS"
-            android:value="san-francisco-pro-arabic" />
+            android:value="sfproarabic,sfproarabic-medium,sfproarabic-semi-bold,sfproarabic-bold" />
     </application>
 </manifest>

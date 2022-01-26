@@ -53,6 +53,7 @@ class Power : public BnPower {
     bool isBoostOverride();
     bool isDebug();
     inline int getBoostLevel() { return mBoostEnabled; };
+    inline int getHighPerf() { return mHighPerf; };
     
 
   protected:
@@ -79,6 +80,7 @@ class Power : public BnPower {
     bool mBoostOverride;
     int mBoostEnabled;
     bool mDebug;
+    int mHighPerf;
     
 };
 

@@ -26,6 +26,6 @@
     <application android:label="@string/font_oxanium_overlay" android:hasCode="false">
         <meta-data
             android:name="android.theme.customization.REQUIRED_SYSTEM_FONTS"
-            android:value="oxanium-thin,oxanium-light,oxanium,oxanium-medium,oxanium-semi-bold,oxanium-bold" />
+            android:value="oxanium,oxanium-medium,oxanium-semi-bold,oxanium-bold" />
     </application>
 </manifest>

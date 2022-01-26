@@ -16,6 +16,6 @@
  */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Headline / Body font SF Pro Arabic overlay -->
+    <!-- sfproarabic overlay -->
     <string name="font_sfproarabic_overlay" translatable="false">SF Pro Arabic</string>
 </resources>
