@@ -74,4 +74,52 @@
     <string name="three_finger_gesture_summary">Проведите тремя пальцами вниз для создания скриншота</string>
     <string name="device_info_protected_single_press">Нажмите для отображения информации</string>
     <string name="status_deep_sleep">(Глубокий сон: %1$d%2$s)</string>
+     <!-- LiveDisplay -->
+    <string name="live_display_summary">Подстраивание экрана в зависимости от времени суток и освещения для улучшения читаемости текста и снижения утомляемости глаз</string>
+    <string name="live_display_color_profile_title">Цветовой профиль</string>
+    <string name="live_display_reading_mode_summary">Режим оттенков серого для долговременного чтения</string>
+    <string name="live_display_reading_mode_title">Режим чтения</string>
+    <string name="color_calibration_summary">Настройка цветопередачи экрана</string>
+    <string name="color_calibration_title">Калибровка цвета</string>
+    <string name="color_red_title">Красный</string>
+    <string name="color_green_title">Зеленый</string>
+    <string name="color_blue_title">Синий</string>
+    <string name="picture_adjustment_summary">Отрегулируйте оттенок, насыщенность, глубину и контрастность</string>
+    <string name="picture_adjustment_title">Регулировка изображения</string>
+    <string name="adj_hue_title">Оттенок</string>
+    <string name="adj_saturation_title">Насыщенность</string>
+    <string name="adj_intensity_title">Интенсивность</string>
+    <string name="adj_contrast_title">Контраст</string>
+     <!-- App Lock -->
+    <string name="applock_title">Блокировка приложений</string>
+    <string name="applock_locked">Заблокировано</string>
+    <string name="applock_unlocked">Разблокировано</string>
+    <string name="applock_locked_apps">Заблокированные приложения</string>
+    <string name="applock_unlocked_apps">Разблокированные приложения</string>
+    <string name="applock_lock_after_title">Заблокировать приложение через</string>
+    <string name="applock_lock_after_instantly">Мгновенно</string>
+    <string name="applock_lock_after_15_seconds">15 сек</string>
+    <string name="applock_lock_after_screen_off">Выключение экрана</string>
+    <string name="applock_lock_after_summary">Приложение будет заблокировано по истечении выбранного тайм-аута</string>
+    <string name="applock_lock_after_instantly_summary">Приложение будет заблокировано мгновенно при закрытии</string>
+    <string name="applock_lock_after_15_seconds_summary">Приложение будет заблокировано через 15 секунд после закрытия</string>
+    <string name="applock_lock_after_screen_off_summary">Приложение будет заблокировано при выключении экрана</string>
+    <string name="applock_notification_info">Вы можете показать / скрыть содержимое уведомления для каждого приложения, щелкнув значок уведомления, отображаемый в настройках каждого заблокированного приложения</string>
+    <string name="applock_show_notif">Отображение содержимого уведомления</string>
+    <string name="applock_hide_notif">Скрытие содержимого уведомления</string>
+    <string name="applock_setup">Настроить блокировку приложений</string>
+    <string name="applock_overlay_summary">Эта функция недоступна, потому что это приложение заблокировано</string>
+    <plurals name="applock_summary">
+        <item quantity="one">приложение заблокировано</item>
+        <item quantity="few">%d приложений заблокировано</item>
+        <item quantity="many">%d приложений заблокировано</item>
+        <item quantity="other">%d приложений заблокировано</item>
+    </plurals>
+     <!-- Radio Info -->
+    <string name="radio_info_title">Информация о сети</string>
+     <!-- SELinux status -->
+    <string name="selinux_status">Статус SELinux</string>
+    <string name="selinux_status_disabled">Отключено</string>
+    <string name="selinux_status_enforcing">Запрешающий</string>
+    <string name="selinux_status_permissive">Разрешающий</string>
 </resources>
