@@ -32,6 +32,7 @@
     <string name="quick_settings_heads_up_label">Всплывающие уведомления</string>
     <string name="quick_settings_locale_label">Язык</string>
     <string name="quick_settings_locale_more_locales_toast">Пожалуйста, настройте несколько языков для включения функционала</string>
+    <string name="quick_settings_sound_label">Звук</string>
     <string name="quick_settings_sound_ring">Рингтон</string>
     <string name="quick_settings_sound_vibrate">Вибрация</string>
     <string name="quick_settings_sound_silent">Заглушить</string>
@@ -68,6 +69,7 @@
     <string name="quick_settings_gaming_mode_label">Игровой режим</string>
     <string name="gaming_mode_not_enabled">Игровой режим отключен в настройках</string>
     <string name="quick_settings_fpsinfo_label">Информация о FPS</string>
+    <string name="quick_settings_rrinfo_label">Информация об RR</string>
     <string name="quick_settings_killapp_label">Закрыть приложение</string>
     <string name="task_helper_app_killed">%1$s принудительно остановлен</string>
     <string name="quick_settings_monotoggle_tile">Аудио режим</string>
@@ -99,4 +101,11 @@
     <string name="tuner_keyguard_transition_animations_summary">Показать бесполезные анимации</string>
     <string name="tuner_keyguard_transition_animations_title">Показать анимацию перехода</string>
     <string name="plugins">Плагины</string>
+     <!-- App Lock -->
+    <string name="applock_credential"> для разблокировки</string>
+    <string name="applock_face"> или ваше лицо для разблокировки</string>
+    <string name="applock_fingerprint"> или отпечаток пальца для разблокировки</string>
+    <string name="applock_fingerprint_face">, отпечаток пальца или ваше лицо для разблокировки</string>
+    <string name="applock_locked"> заблокирован</string>
+    <string name="applock_unlock">Разблокировать</string>
 </resources>
