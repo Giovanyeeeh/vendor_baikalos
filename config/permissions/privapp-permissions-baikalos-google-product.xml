@@ -347,6 +347,7 @@ It allows additional grants on top of privapp-permissions-platform.xml
         <permission name="android.permission.MONITOR_DEFAULT_SMS_PACKAGE" />
         <permission name="android.permission.PACKAGE_USAGE_STATS" />
         <permission name="android.permission.READ_OEM_UNLOCK_STATE" />
+        <permission name="android.permission.READ_PHONE_STATE" fixed="false" />
         <permission name="android.permission.REQUEST_NOTIFICATION_ASSISTANT_SERVICE" />
         <permission name="android.permission.START_ACTIVITIES_FROM_BACKGROUND" />
         <permission name="android.permission.SUBSTITUTE_NOTIFICATION_APP_NAME" />
@@ -679,6 +680,9 @@ It allows additional grants on top of privapp-permissions-platform.xml
         <permission name="android.permission.ACCESS_NETWORK_CONDITIONS" />
         <permission name="android.permission.ACTIVITY_EMBEDDING" />
         <permission name="android.permission.BLUETOOTH_PRIVILEGED" />
+        <permission name="android.permission.BLUETOOTH_ADVERTISE" fixed="false" />
+        <permission name="android.permission.BLUETOOTH_CONNECT" fixed="false" />
+        <permission name="android.permission.BLUETOOTH_SCAN" fixed="false" />
         <permission name="android.permission.CALL_PRIVILEGED" />
         <permission name="android.permission.CAPTURE_AUDIO_HOTWORD" />
         <permission name="android.permission.CAPTURE_AUDIO_OUTPUT" />
