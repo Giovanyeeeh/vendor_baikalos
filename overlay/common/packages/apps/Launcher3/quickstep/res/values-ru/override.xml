@@ -16,7 +16,7 @@
     <string name="app_info_source_unknown">Неизвестно</string>
     <string name="app_info_more">О приложении</string>
     <string name="pref_value_default">По умолчанию</string>
-    <string name="trust_apps_manager_name">Скрытые и Защищенные приложения</string>
+    <string name="trust_apps_manager_name">Скрытые</string>
     <string name="trust_apps_info_hidden">Скрытые приложения и их виджеты не отображаются в меню приложений</string>
     <string name="trust_apps_info_protected">Для открытия защищенных приложений из лаунчера требуется аутентификация</string>
     <string name="quickspace_category">Настройки виджета</string>
@@ -60,4 +60,13 @@
     <string name="allow_swipe_down_clearall_title">Свайп вниз в панели недавних</string>
     <string name="trust_apps_manager_name_dialog">Защищенные приложения</string>
     <string name="trust_apps_auth_manager">Разблокируйте, для управления скрытыми и защищенными приложениями</string>
+    <string name="recent_task_option_kill_app">Остановить</string>
+	<string name="recents_app_killed">Приложение остановлено</string>
+    <string name="recents_task_lock">Забл.</string>
+    <string name="recents_task_unlock">Разбл.</string>
+	<string name="memory_info">Своб. ОЗУ: %1$d МБ</string>
+    <string name="dock_search_summary">Показывать панель поиска в нижней части док-бара</string>
+    <string name="dock_search_title">Панель поиска Google</string>
+    <string name="pref_recents_show_memory_summary">Показывать свободную оперативную память в панели недавних</string>
+    <string name="pref_recents_show_memory_title">Своб. ОЗУ в панели недавних</string>
 </resources>
