@@ -41,6 +41,6 @@
     <!-- allow-in-power-save package="com.android.car.dialer" / -->
     <!-- allow-in-power-save package="com.android.inputmethod.latin" / -->
 
-    <!-- allow-in-power-save package="com.android.cellbroadcastreceiver" / -->
+    <allow-in-power-save package="com.android.cellbroadcastreceiver" />
     <!-- allow-in-power-save package="com.android.certinstaller" / -->
 </config>
