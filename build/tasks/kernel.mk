@@ -147,18 +147,27 @@ ifeq "$(wildcard $(KERNEL_SRC) )" ""
     endif
 else
     NEEDS_KERNEL_COPY := true
-    ifeq ($(TARGET_KERNEL_CONFIG),)
-        $(warning **********************************************************)
-        $(warning * Kernel source found, but no configuration was defined  *)
-        $(warning * Please add the TARGET_KERNEL_CONFIG variable to your   *)
-        $(warning * BoardConfig.mk file                                    *)
-        $(warning **********************************************************)
-        $(error "NO KERNEL CONFIG")
-    else
-        FULL_KERNEL_BUILD := true
-        KERNEL_BIN := $(TARGET_PREBUILT_INT_KERNEL)
-    endif
-endif
+        ifeq ($(filter RELEASE NIGHTLY SNAPSHOT EXPERIMENTAL,$(LINEAGE_BUILDTYPE)),)
+            $(error "PREBUILT KERNEL IS NOT ALLOWED ON OFFICIAL BUILDS!")
+        else
+            ifneq ($(TARGET_FORCE_PREBUILT_KERNEL),)
+                $(warning **********************************************************)
+                $(warning * Kernel source found and configuration was defined,     *)
+                $(warning * but prebuilt kernel is being forced.                   *)
+                $(warning * While this is likely intentional,                      *)
+                $(warning * it is NOT SUPPORTED WHATSOEVER.                        *)
+                $(warning * Generated kernel headers may not align with            *)
+                $(warning * the ABI of kernel you're including.                    *)
+                $(warning * Please unset TARGET_FORCE_PREBUILT_KERNEL              *)
+                $(warning * to build the kernel from source.                       *)
+                $(warning **********************************************************)
+                FULL_KERNEL_BUILD := false
+                KERNEL_BIN := $(TARGET_PREBUILT_KERNEL)
+            else
+                FULL_KERNEL_BUILD := true
+                KERNEL_BIN := $(TARGET_PREBUILT_INT_KERNEL)
+            endif
+        endif
 
 ifeq ($(FULL_KERNEL_BUILD),true)
 
